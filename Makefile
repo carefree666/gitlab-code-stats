@@ -13,6 +13,9 @@ install:
 	@echo "📦 Installing dependencies..."
 	$(VENV_DIR)/bin/pip install --upgrade pip
 	$(VENV_DIR)/bin/pip install -r requirements.txt
+	@echo "✅ Virtual environment created and dependencies installed."
+	@echo "💡 To activate the virtual environment, run:"
+	@echo "   source $(VENV_DIR)/bin/activate"
 
 run:
 	@echo "🚀 Running CLI..."

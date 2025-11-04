@@ -1,9 +1,10 @@
 {
+  "port": "8080",
   "api_url": "https://gitlab.example.com/api/v4",
   "private_token": "YOUR_PRIVATE_TOKEN",
   "max_lines_per_commit": 1000,
   "start_date": "2025-10-01T00:00:00Z",
   "end_date": "2025-10-31T59:59:59Z",
-  "users": [""],
+  "users": [],
   "output_filename": "gitlab_code_stats.csv"
 }

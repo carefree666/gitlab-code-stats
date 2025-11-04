@@ -16,17 +16,13 @@ def load_config(filename="config.json"):
             sys.exit(1)
 
     # Required fields
-    for key in ["api_url", "private_token", "start_date", "end_date", "users"]:
+    for key in ["api_url", "private_token", "start_date", "end_date"]:
         if key not in config:
             print(f"❌ Config missing required field: {key}")
             sys.exit(1)
 
-    # Remove blank users
-    config["users"] = [u for u in config.get("users", []) if u.strip()]
-    if not config["users"]:
-        print("❌ User list is empty or contains only blank entries.")
-        print("Please add at least one valid GitLab username in 'users' in config.json.")
-        sys.exit(1)
+    # Web port
+    config["port"] = config.get("port", "8080")
 
     # Max lines per commit
     config["max_lines_per_commit"] = config.get("max_lines_per_commit", 1000)

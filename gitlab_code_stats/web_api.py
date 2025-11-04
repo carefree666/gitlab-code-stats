@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.responses import FileResponse, JSONResponse
 from pydantic import BaseModel
 from .main_logic import collect_stats
+from .utils import load_config
 import os
 
 app = FastAPI(title="GitLab Code Stats API")
@@ -20,11 +21,13 @@ def stats(request: StatsRequest):
         users=request.users,
         config_path=config_path
     )
-    output_file = os.path.join(os.getcwd(), "gitlab_code_stats.csv")
+    config = load_config(config_path)
+    output_file = os.path.join(os.getcwd(), config["output_filename"])
     if os.path.exists(output_file):
-        return FileResponse(output_file, filename="gitlab_code_stats.csv")
+        return FileResponse(output_file, filename=config["output_filename"])
     return JSONResponse({"success": False, "message": "No data generated"})
 
 def start_web():
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    config = load_config("config.json")
+    uvicorn.run(app, host="0.0.0.0", port=config["port"])
